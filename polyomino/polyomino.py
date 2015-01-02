@@ -208,12 +208,15 @@ class PolyominoPuzzle:
             # Compute all possible valid translations of each rotation and
             # reflection
             all_trans = []
+            print 
             for mod in mods:
                 for y in range(self.height):
                     for x in range(self.width):
-                        trans = translate_piece(mod, x, y)
-                        if self._fits_in_grid(trans):
-                            all_trans.append(frozenset(trans))
+                        if (x+y) % 2 == 0:
+                            print (x,y)
+                            trans = translate_piece(mod, x, y)
+                            if self._fits_in_grid(trans):
+                                all_trans.append(frozenset(trans))
             self.piece_trans.append(all_trans)
 
     def _fits_in_grid(self, piece):
@@ -272,7 +275,7 @@ class PolyominoPuzzle:
         for clause in self.sat_clauses:
             sat_problem += ' '.join(map(str, clause)) + ' 0\n'
     
-        print sat_problem
+        #print sat_problem
 
         output = sat.communicate(sat_problem)[0]
 
